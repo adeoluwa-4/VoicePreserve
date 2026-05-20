@@ -1,0 +1,285 @@
+:root {
+  --bg: #f4f6f3;
+  --bg-soft: #e9efea;
+  --surface: #ffffff;
+  --ink: #14211b;
+  --muted: #546158;
+  --line: #cfddd1;
+  --primary: #145c43;
+  --primary-ink: #eefaf4;
+  --accent: #d8a34f;
+  --danger: #9c2f2f;
+  --success: #1f7a43;
+  --shadow: 0 12px 28px rgba(20, 33, 27, 0.08);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at 20% 10%, #ffffff 0%, var(--bg) 42%, #e6eee7 100%);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  min-height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  font-family: "Baskerville", "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(140deg, #ffffff 0%, #edf4ef 100%);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.05;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.hero-actions,
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.panel,
+.project-card,
+.diff-card,
+.report-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.panel.narrow {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.project-card,
+.diff-card,
+.report-card {
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.grid.two {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  background: #fefefe;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.62rem 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+
+.btn-secondary,
+.btn-small {
+  background: var(--bg-soft);
+  color: var(--ink);
+}
+
+.btn-link {
+  background: transparent;
+  color: var(--primary);
+  padding-left: 0;
+  text-align: left;
+}
+
+.btn-small {
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+}
+
+.file-label {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.file-label input {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.warning-box {
+  background: #fff7e7;
+  border: 1px solid #ebd7ac;
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.error-text {
+  color: var(--danger);
+  margin: 0;
+}
+
+.success-text {
+  color: var(--success);
+  margin: 0;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+.check-list {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.diff-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+@media (max-width: 720px) {
+  .content {
+    padding: 0.8rem;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+}

@@ -175,3 +175,22 @@ export async function signInWithGoogleProfile(profile: GoogleProfile, token: Goo
 
   return user;
 }
+
+export async function signInWithGoogleProfileWithoutDatabase(profile: GoogleProfile) {
+  const fallbackSub = `google:${profile.sub}`;
+  const sessionToken = await createSessionToken({ sub: fallbackSub, email: profile.email });
+  const jar = await cookies();
+  jar.set(process.env.COOKIE_NAME ?? "voicepreserve_session", sessionToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7
+  });
+
+  return {
+    id: fallbackSub,
+    email: profile.email,
+    displayName: profile.name ?? profile.email.split("@")[0]
+  };
+}

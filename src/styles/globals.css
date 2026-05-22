@@ -215,6 +215,12 @@ textarea {
   text-align: left;
 }
 
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .btn-small {
   padding: 0.35rem 0.75rem;
   border-radius: 8px;

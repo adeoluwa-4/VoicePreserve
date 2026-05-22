@@ -24,7 +24,7 @@ It is built for:
 - Database: PostgreSQL + Prisma ORM
 - Queue/background jobs: Redis + BullMQ worker
 - Storage: pluggable adapter (`local` included)
-- Auth: email/password with secure session cookie, OAuth-ready schema evolution path
+- Auth: email/password + Google OAuth with secure session cookie
 - Testing: Vitest (unit/integration), Playwright (e2e)
 - Local dev infra: Docker Compose
 
@@ -65,6 +65,19 @@ Primary entities:
 - upload validation for allowed file types
 - per-IP API rate limiting middleware
 - account privacy deletion endpoint to remove drafts/files/history (`/api/privacy/delete`)
+
+## Auth providers
+
+- Email/password: `/api/auth/signup` and `/api/auth/login`
+- Google OAuth: `/api/auth/google/start` and `/api/auth/google/callback`
+
+Set these env vars for Google login:
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+
+Google Cloud OAuth redirect URI must include:
+- `http://localhost:3000/api/auth/google/callback` (local)
+- `https://<your-domain>/api/auth/google/callback` (production)
 
 ## Core user flow implemented
 
@@ -119,6 +132,11 @@ Terminal B:
 npm run worker
 ```
 
+### Frontend-only preview mode
+
+If infra is not running yet, test the UI only at:
+- `/preview`
+
 ### 6) Demo account
 
 From `.env` defaults:
@@ -143,6 +161,41 @@ npm run test:e2e
 3. Set strong secrets (`JWT_SECRET`, `CSRF_SECRET`).
 4. Run `npm run prisma:deploy` in CI/CD release phase.
 5. Run worker as a separate process/service.
+
+## Vercel deployment
+
+1. Install and login:
+```bash
+npm i -g vercel
+vercel login
+```
+2. Configure production env vars in Vercel project settings:
+- `DATABASE_URL`
+- `REDIS_URL`
+- `JWT_SECRET`
+- `CSRF_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `APP_URL`
+- `COOKIE_NAME`
+3. Deploy:
+```bash
+npm run deploy:vercel
+```
+
+## AWS + Docker IaC deployment
+
+This repository includes Terraform and deployment helpers:
+- Terraform: `infra/aws/terraform/`
+- ECR image push helper: `scripts/push-ecr.sh`
+- AWS plan helper: `scripts/deploy-aws.sh`
+
+High-level flow:
+1. Build and push Docker image to ECR.
+2. Set Terraform variables in `infra/aws/terraform/terraform.tfvars`.
+3. Run `terraform init`, `terraform plan`, and `terraform apply`.
+4. ECS runs separate app and worker services on Fargate.
+5. RDS Postgres and ElastiCache Redis are provisioned in private subnets.
 
 ## Responsible copy guidance
 

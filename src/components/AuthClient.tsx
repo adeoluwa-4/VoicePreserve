@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface AuthResponse {
   user: { id: string; email: string; displayName?: string | null };
@@ -8,11 +9,14 @@ interface AuthResponse {
 }
 
 export function AuthClient() {
+  const searchParams = useSearchParams();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const authError = searchParams.get("authError");
+  const googleEnabled = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_LOGIN === "true";
 
   async function submit() {
     setError(null);
@@ -42,7 +46,7 @@ export function AuthClient() {
   return (
     <section className="panel narrow">
       <h1>{mode === "login" ? "Sign in" : "Create account"}</h1>
-      <p>Use email and password authentication. OAuth-ready structure is available for future providers.</p>
+      <p>Use email/password or continue with Google authentication.</p>
       <label>
         Email
         <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -58,9 +62,21 @@ export function AuthClient() {
         </label>
       ) : null}
       {error ? <p className="error-text">{error}</p> : null}
+      {authError ? (
+        <p className="error-text">
+          {authError === "google_not_configured"
+            ? "Google login is not configured yet. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET."
+            : "Google login failed. Please try again."}
+        </p>
+      ) : null}
       <button className="btn btn-primary" type="button" onClick={submit}>
         {mode === "login" ? "Sign in" : "Create account"}
       </button>
+      {googleEnabled ? (
+        <a className="btn btn-secondary" href="/api/auth/google/start">
+          Continue with Google
+        </a>
+      ) : null}
       <button className="btn btn-link" type="button" onClick={() => setMode(mode === "login" ? "signup" : "login") }>
         {mode === "login" ? "Need an account? Sign up" : "Already have an account? Sign in"}
       </button>

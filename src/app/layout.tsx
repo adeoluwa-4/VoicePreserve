@@ -14,7 +14,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="app-shell">
           <header className="topbar">
             <a className="brand" href="/">
-              VoicePreserve
+              <img src="/voicepreserve-logo.svg" alt="VoicePreserve logo" width={32} height={32} />
+              <span>VoicePreserve</span>
             </a>
             <nav className="nav-links" aria-label="Main">
               <a href="/dashboard">Dashboard</a>

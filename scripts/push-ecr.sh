@@ -11,6 +11,7 @@ AWS_ACCOUNT_ID="$2"
 IMAGE_TAG="$3"
 REPO_NAME="voicepreserve-app"
 IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${IMAGE_TAG}"
+export DYLD_LIBRARY_PATH="/opt/homebrew/opt/expat/lib:${DYLD_LIBRARY_PATH:-}"
 
 aws ecr describe-repositories --repository-names "$REPO_NAME" --region "$AWS_REGION" >/dev/null 2>&1 || \
   aws ecr create-repository --repository-name "$REPO_NAME" --region "$AWS_REGION" >/dev/null

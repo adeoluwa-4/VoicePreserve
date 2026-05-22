@@ -2,6 +2,7 @@ import { issueCsrfToken } from "@/lib/auth/csrf";
 import {
   exchangeGoogleCode,
   fetchGoogleProfile,
+  signInWithGoogleProfileWithoutDatabase,
   signInWithGoogleProfile,
   validateGoogleState
 } from "@/lib/auth/google-oauth";
@@ -26,7 +27,13 @@ export async function GET(request: Request) {
   try {
     const token = await exchangeGoogleCode(code);
     const profile = await fetchGoogleProfile(token.access_token);
-    const user = await signInWithGoogleProfile(profile, token);
+    let user;
+
+    try {
+      user = await signInWithGoogleProfile(profile, token);
+    } catch {
+      user = await signInWithGoogleProfileWithoutDatabase(profile);
+    }
 
     await issueCsrfToken();
 
@@ -40,7 +47,7 @@ export async function GET(request: Request) {
       }
     });
 
-    return Response.redirect(`${process.env.APP_URL ?? "http://localhost:3000"}/dashboard`, 302);
+    return Response.redirect(`${process.env.APP_URL ?? "http://localhost:3000"}/preview`, 302);
   } catch {
     return Response.redirect(`${process.env.APP_URL ?? "http://localhost:3000"}/auth?authError=google_login_failed`, 302);
   }

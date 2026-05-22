@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
             <nav className="nav-links" aria-label="Main">
               <a href="/dashboard">Dashboard</a>
+              <a href="/preview">Preview</a>
               <a href="/voice-profile">Voice Profile</a>
               <a href="/transparency-report">Transparency Reports</a>
               <a href="/auth">Sign in</a>

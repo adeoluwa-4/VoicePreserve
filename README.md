@@ -112,6 +112,13 @@ cp .env.example .env
 docker compose up -d db redis
 ```
 
+If Docker is unavailable on your machine, you can run local services with Homebrew:
+```bash
+brew install postgresql@16 redis
+brew services start postgresql@16
+brew services start redis
+```
+
 ### 4) Run migrations and seed data
 
 ```bash
@@ -196,6 +203,11 @@ High-level flow:
 3. Run `terraform init`, `terraform plan`, and `terraform apply`.
 4. ECS runs separate app and worker services on Fargate.
 5. RDS Postgres and ElastiCache Redis are provisioned in private subnets.
+
+If `aws --version` fails with an expat symbol error on macOS, run commands with:
+```bash
+export DYLD_LIBRARY_PATH=/opt/homebrew/opt/expat/lib:$DYLD_LIBRARY_PATH
+```
 
 ## Responsible copy guidance
 

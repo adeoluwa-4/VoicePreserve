@@ -52,9 +52,16 @@ a {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: "Baskerville", "Times New Roman", serif;
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.brand img {
+  border-radius: 8px;
 }
 
 .nav-links {

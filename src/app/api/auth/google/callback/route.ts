@@ -37,15 +37,19 @@ export async function GET(request: Request) {
 
     await issueCsrfToken();
 
-    await recordAuditEvent({
-      userId: user.id,
-      actorType: "USER",
-      eventName: "auth.google_login",
-      eventPayload: {
-        provider: "google",
-        email: user.email
-      }
-    });
+    try {
+      await recordAuditEvent({
+        userId: user.id,
+        actorType: "USER",
+        eventName: "auth.google_login",
+        eventPayload: {
+          provider: "google",
+          email: user.email
+        }
+      });
+    } catch {
+      // Keep login flow available even when observability/audit storage is unavailable.
+    }
 
     return Response.redirect(`${process.env.APP_URL ?? "http://localhost:3000"}/preview`, 302);
   } catch {

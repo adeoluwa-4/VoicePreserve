@@ -172,8 +172,7 @@ If infra is not running yet, test the UI only at:
 ### 6) Demo account
 
 From `.env` defaults:
-- email: `demo@voicepreserve.app`
-- password: `DemoPass123!`
+Set `DEMO_EMAIL` and `DEMO_PASSWORD` in your local environment before running the seed command. Do not commit those values.
 
 ## Tests
 

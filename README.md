@@ -2,6 +2,10 @@
 
 VoicePreserve is a production-oriented web app for revising rough or AI-assisted drafts so they sound more like the author while preserving meaning and transparency.
 
+![VoicePreserve logo](public/voicepreserve-logo.svg)
+
+The application combines voice-profile extraction, rewrite orchestration, sentence-level semantic checks, human review, transparency reports, and asynchronous exports in one auditable workflow.
+
 ## Product boundaries
 
 VoicePreserve is **not** a detector-evasion tool.
@@ -29,6 +33,27 @@ It is built for:
 - Local dev infra: Docker Compose
 
 ## Architecture
+
+```mermaid
+flowchart LR
+    A["Source document"] --> B["Rewrite service"]
+    C["Writing samples"] --> D["Voice profile"]
+    D --> B
+    B --> E["Rewrite provider"]
+    E --> F["Candidate revisions"]
+    F --> G["Semantic and drift checks"]
+    G --> H["Human accept / reject review"]
+    H --> I["Transparency report"]
+    H --> J["BullMQ export job"]
+```
+
+The Next.js application owns the web and API surfaces, PostgreSQL stores the editing record, and a separate BullMQ worker handles export jobs through Redis. Provider, storage, and queue boundaries are explicit so production services can replace the included local adapters.
+
+### Implementation status
+
+- The complete application flow, persistence layer, local rewrite provider, voice profiling, semantic checks, transparency reports, and export queue are implemented.
+- `MockRewriteProvider` keeps local development deterministic and credential-free; a production model provider must implement the contract in `src/lib/ai/provider.ts`.
+- The repository includes unit, integration, and end-to-end test suites. Run the commands below in the target environment before treating a deployment as verified.
 
 ### Core services
 

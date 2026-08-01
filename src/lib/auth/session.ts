@@ -24,7 +24,7 @@ export async function getSessionUser() {
       // Fall back below when the database is unreachable.
     }
 
-    if (payload.sub.startsWith("google:") || payload.sub === "demo-offline") {
+    if (payload.sub.startsWith("google:")) {
       return {
         id: payload.sub,
         email: payload.email,

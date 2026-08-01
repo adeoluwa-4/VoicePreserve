@@ -1,20 +1,20 @@
 # VoicePreserve
 
-VoicePreserve is a production-oriented web app for revising rough or AI-assisted drafts so they sound more like the author while preserving meaning and transparency.
+VoicePreserve is a production focused web app for revising rough or AI assisted drafts so they sound more like the author while preserving meaning and transparency.
 
 ![VoicePreserve logo](public/voicepreserve-logo.svg)
 
-The application combines voice-profile extraction, rewrite orchestration, sentence-level semantic checks, human review, transparency reports, and asynchronous exports in one auditable workflow.
+The application combines voice profile extraction, rewrite orchestration, sentence level semantic checks, human review, transparency reports, and asynchronous exports in one auditable workflow.
 
 ## Product boundaries
 
-VoicePreserve is **not** a detector-evasion tool.
+VoicePreserve is **not** a detector evasion tool.
 
 It does not provide, market, or optimize for:
 - bypassing AI detectors
 - detector score gaming
 - passing GPTZero, ZeroGPT, Turnitin, or similar systems
-- concealment-focused authorship workflows
+- concealment focused authorship workflows
 
 It is built for:
 - preserving meaning
@@ -52,15 +52,15 @@ The Next.js application owns the web and API surfaces, PostgreSQL stores the edi
 ### Implementation status
 
 - The complete application flow, persistence layer, local rewrite provider, voice profiling, semantic checks, transparency reports, and export queue are implemented.
-- `MockRewriteProvider` keeps local development deterministic and credential-free; a production model provider must implement the contract in `src/lib/ai/provider.ts`.
-- The repository includes unit, integration, and end-to-end test suites. Run the commands below in the target environment before treating a deployment as verified.
+- `MockRewriteProvider` keeps local development deterministic and credential free; a production model provider must implement the contract in `src/lib/ai/provider.ts`.
+- The repository includes unit, integration, and end to end test suites. Run the commands below in the target environment before treating a deployment as verified.
 
 ### Core services
 
 - `src/lib/services/rewrite.ts`: revision orchestration and candidate persistence
 - `src/lib/ai/provider.ts`: provider contract
 - `src/lib/ai/mock-provider.ts`: local mock provider (no external credentials required)
-- `src/lib/services/semantic.ts`: sentence-level semantic fidelity and drift warnings
+- `src/lib/services/semantic.ts`: sentence level semantic fidelity and drift warnings
 - `src/lib/services/voice-profile.ts`: style profile extraction from writing samples
 - `src/lib/services/transparency.ts`: transparency report generation
 - `src/lib/services/export.ts`: export artifacts and queue integration
@@ -86,9 +86,9 @@ Primary entities:
 - minimal metadata logging by default
 - raw draft logging disabled by default (`ENABLE_RAW_CONTENT_LOGGING=false`)
 - CSRF token checks for authenticated mutating API calls
-- secure HTTP-only session cookie
+- secure HTTP only session cookie
 - upload validation for allowed file types
-- per-IP API rate limiting middleware
+- per IP API rate limiting middleware
 - account privacy deletion endpoint to remove drafts/files/history (`/api/privacy/delete`)
 
 ## Auth providers
@@ -110,8 +110,8 @@ Google Cloud OAuth redirect URI must include:
 2. Create project (`/dashboard`)
 3. Add source text by paste or upload `.txt/.docx/.pdf`
 4. Optionally upload writing samples and build voice profile (`/voice-profile`)
-5. Generate 1-3 rewrite options in project editor (`/projects/[id]`)
-6. Review sentence-level diff and rationale
+5. Generate one to three rewrite options in project editor (`/projects/[id]`)
+6. Review sentence level diff and rationale
 7. See semantic drift warnings (low similarity, named entities, claim strength, numbers/dates, citations)
 8. Accept/reject sentence changes
 9. Generate transparency report (`/transparency-report`)
@@ -164,7 +164,7 @@ Terminal B:
 npm run worker
 ```
 
-### Frontend-only preview mode
+### Frontend only preview mode
 
 If infra is not running yet, test the UI only at:
 - `/preview`
@@ -189,7 +189,7 @@ npm run test:e2e
 ## Deployment notes
 
 1. Use managed Postgres + Redis in production.
-2. Replace local storage adapter with S3-compatible adapter.
+2. Replace local storage adapter with an S3 compatible adapter.
 3. Set strong secrets (`JWT_SECRET`, `CSRF_SECRET`).
 4. Run `npm run prisma:deploy` in CI/CD release phase.
 5. Run worker as a separate process/service.
@@ -222,7 +222,7 @@ This repository includes Terraform and deployment helpers:
 - ECR image push helper: `scripts/push-ecr.sh`
 - AWS plan helper: `scripts/deploy-aws.sh`
 
-High-level flow:
+High level flow:
 1. Build and push Docker image to ECR.
 2. Set Terraform variables in `infra/aws/terraform/terraform.tfvars`.
 3. Run `terraform init`, `terraform plan`, and `terraform apply`.

@@ -2,6 +2,8 @@
 node_modules
 .env
 .env.local
+.env.*
+!.env.example
 coverage
 playwright-report
 test-results
@@ -11,3 +13,8 @@ uploads
 
 *.tsbuildinfo
 .vercel
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json

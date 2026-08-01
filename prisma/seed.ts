@@ -4,8 +4,11 @@ import { PrismaClient, RevisionGoal, RevisionStatus, SourceType } from "@prisma/
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = process.env.DEMO_EMAIL ?? "demo@voicepreserve.app";
-  const password = process.env.DEMO_PASSWORD ?? "DemoPass123!";
+  const email = process.env.DEMO_EMAIL;
+  const password = process.env.DEMO_PASSWORD;
+  if (!email || !password) {
+    throw new Error("Set DEMO_EMAIL and DEMO_PASSWORD before running the seed command.");
+  }
   const passwordHash = await bcrypt.hash(password, 12);
 
   const user = await prisma.user.upsert({

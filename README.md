@@ -1,5 +1,9 @@
 # VoicePreserve
 
-VoicePreserve is a writing app that helps people improve a draft without losing their own meaning and style. A user can add writing samples, create a voice profile, compare suggested changes, check for meaning changes, and keep a clear record of what was edited.
+## What it does
 
-I built the web app with Next.js, TypeScript, PostgreSQL, Prisma, Redis, and background jobs. The project includes sign in, private projects, file uploads, rewrite choices, human review, transparency reports, exports, tests, and deployment tools.
+VoicePreserve helps people improve a draft without losing their own meaning and style. Users can add writing samples, create a voice profile, compare changes, check meaning, and keep a record of edits.
+
+## What I built
+
+I built the Next.js web app, sign in, private projects, file uploads, rewrite choices, human review, transparency reports, exports, tests, and background jobs with TypeScript, PostgreSQL, Prisma, and Redis. Run `npm install` and `npm run dev` to start the local app.
